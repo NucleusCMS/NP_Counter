@@ -405,12 +405,11 @@ class NP_Counter extends NucleusPlugin {
 		$fp = @fopen ($url, "r");
 		if ($fp){
 			$ref_str = fread($fp, 16384);
-			if (eregi("<version>(.*)</version>", $ref_str, $out)) {
+			if (preg_match('@<version>(.*)</version>@i', $ref_str, $out)) {
 				setcookie($name,1,null,'/'); // set session cookie
 				return $out[1];
 			}
 		}
 		return 0;
 	}
-
 }
