@@ -108,7 +108,7 @@ class NP_Counter extends NucleusPlugin {
 		
 		$check_query = "SELECT * FROM ". sql_table('plugin_counter');
 		$check_rows = sql_query($check_query);
-		$num_rows = mysql_num_rows($check_rows); 
+		$num_rows = sql_num_rows($check_rows); 
 		if ($num_rows < 1) {
 			$install_date = date("Y-m-d H:i:s");
 			$install_ip = $_SERVER['REMOTE_ADDR'];
@@ -174,7 +174,7 @@ class NP_Counter extends NucleusPlugin {
 		//get the latest count
 		$query_number = sql_query("SELECT * FROM ". sql_table('plugin_counter') 
 			." ORDER BY count_time DESC LIMIT 1");
-		if ($the_number = mysql_fetch_array($query_number)){
+		if ($the_number = sql_fetch_array($query_number)){
 			$old_number = $the_number["count_num"];
 			$old_date   = $the_number["count_time"];
 			$begin_date = $the_number["count_begin"];
@@ -199,7 +199,7 @@ class NP_Counter extends NucleusPlugin {
 					." WHERE count_time >= '$chk_date'" 
 					." AND count_ipcheck = '$new_ip'"
 					);
-				$ip1_num = mysql_fetch_array($query_ip1);
+				$ip1_num = sql_fetch_array($query_ip1);
 			}
 			
 			//check count in a same day
@@ -209,7 +209,7 @@ class NP_Counter extends NucleusPlugin {
 					." WHERE count_time >= '$chk_date'" 
 					." AND count_ipcheck = '$new_ip'"
 					);
-				$ip2_num = mysql_fetch_array($query_ip2);
+				$ip2_num = sql_fetch_array($query_ip2);
 			}
 			
 			// hit count
@@ -250,19 +250,19 @@ class NP_Counter extends NucleusPlugin {
 				$t_date = date('Y-m-d', $new_time);
 				$query_today = sql_query("SELECT COUNT(count_time) FROM ". sql_table('plugin_counter') 
 					." WHERE SUBSTRING(count_time,1,10) = '$t_date'" );
-				$today_num = mysql_fetch_array($query_today);
+				$today_num = sql_fetch_array($query_today);
 				if ($today_num == 0) $today_num = 1; //exception
 				
 				//yesterday
 				$y_date = date('Y-m-d', mktime(0,0,0,date("m"),date("d")-1,date("Y")) );
 				$query_yest = sql_query("SELECT COUNT(count_time) FROM ". sql_table('plugin_counter') 
 					." WHERE SUBSTRING(count_time,1,10) = '$y_date'" );
-				$yest_num = mysql_fetch_array($query_yest);
+				$yest_num = sql_fetch_array($query_yest);
 				
 				if ($is_week != 'yes') {
 					//7days (all data)
 					$query_week = sql_query("SELECT COUNT(count_time) FROM ". sql_table('plugin_counter') );
-					$week_num = mysql_fetch_array($query_week);
+					$week_num = sql_fetch_array($query_week);
 				}
 				else {
 					//week (from Sunday to Saturday)
@@ -270,7 +270,7 @@ class NP_Counter extends NucleusPlugin {
 					$week_date = date('Y-m-d', mktime(0,0,0,date("m"),date("d")-$d_of_week,date("Y")) );
 					$query_week = sql_query("SELECT COUNT(count_time) FROM ". sql_table('plugin_counter') 
 						." WHERE SUBSTRING(count_time,1,10) >= '$week_date'" );
-					$week_num = mysql_fetch_array($query_week);
+					$week_num = sql_fetch_array($query_week);
 				} 
 				
 				if ($fig_detail > 0) {
