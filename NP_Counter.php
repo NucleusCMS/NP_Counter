@@ -36,14 +36,6 @@
   *   v0.1 : just finished, and worked on my blog.
   */
 
-// plugin needs to work on Nucleus versions <=2.0 as well
-if (!function_exists('sql_table'))
-{
-	function sql_table($name) {
-		return 'nucleus_' . $name;
-	}
-}
-
 class NP_Counter extends NucleusPlugin { 
 
 	/* plugin info */
@@ -52,7 +44,7 @@ class NP_Counter extends NucleusPlugin {
     function getAuthor()  { return 'Qi Liangpei + yu'; } 
     function getURL()  { return 'http://repository.datoka.jp/index.php?itemid=166'; } 
     function getVersion() { return '0.63'; } 
-	function getMinNucleusVersion() { return 200; }
+	function getMinNucleusVersion() { return 300; }
 	function getTableList () { return array( sql_table('plugin_counter') ); }
 	function supportsFeature($what) {
 		switch($what)
@@ -422,5 +414,3 @@ class NP_Counter extends NucleusPlugin {
 	}
 
 }
-
-?>
