@@ -167,7 +167,7 @@ class NP_Counter extends NucleusPlugin {
 		$init_val = (int)$this->getOption('init_val');
 		
 		$fig = $this->getOption(figure);
-		list($fig, $fig_detail) = split('/', $fig); //separate figure settings
+		list($fig, $fig_detail) = explode('/', $fig); //separate figure settings
 		$fig        = (int)$fig;
 		$fig_detail = (int)$fig_detail;
 		
